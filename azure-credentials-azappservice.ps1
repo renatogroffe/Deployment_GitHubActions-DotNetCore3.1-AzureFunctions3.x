@@ -1,0 +1,3 @@
+az ad sp create-for-rbac --name "GroffeGitHubActionsAzureFunctions" --role contributor --scopes /subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCE_GROUP>/providers/Microsoft.Web/sites/<WEB APP> --sdk-auth
+
+az ad sp create-for-rbac --name "GroffeGitHubActionsAzureFunctions" --role contributor --scopes /subscriptions/f3e7d90b-efba-4481-ac3d-d8df26b6235d/resourceGroups/Serverless/providers/Microsoft.Web/sites/groffeserverless0 --sdk-auth

@@ -1,0 +1,36 @@
+name: .NET Core + Azure Functions
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+
+    - name: Build com o utilitario dotnet
+      run: dotnet build ${{ secrets.CAMINHO_PROJETO }} --configuration Release
+
+    - name: Publish com o utilitario dotnet
+      run: dotnet publish ${{ secrets.CAMINHO_PROJETO }} -c Release -o app
+
+    - name: Login no Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deployment da Function App
+      uses: Azure/functions-action@v1.1.4
+      with:
+        app-name: ${{ secrets.FUNCTION_APP }}
+        package: './app'
